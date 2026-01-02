@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Boda de Juan & Natalia — 27 de junio de 2026</title>
+  <title>Boda Juan & Natalia — 27 de junio de 2026</title>
   <meta name="description" content="Confirma tu asistencia a la boda de Juan & Natalia (Comillas, 27 de junio de 2026)." />
 
   <meta property="og:title" content="Boda de Juan & Natalia — 27 de junio de 2026" />
@@ -12,7 +12,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -33,7 +33,9 @@
     .wrap{max-width:820px;margin:0 auto;padding:22px}
 
     header{text-align:center;margin-bottom:10px}
-    .title{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.3px;font-size:44px;margin:0 0 6px}
+    .title {font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-size: 40px;}
     .sub{color:#3a3f45;margin:0 0 12px}
     .countdown{display:flex;gap:10px;justify-content:center}
     .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-weight:700}
@@ -43,7 +45,9 @@
     .hero img{width:min(900px,96%);border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow);object-fit:cover}
 
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
-    h2{font-family:'Playfair Display',serif;font-size:26px;margin:0 0 10px}
+   h2 { font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-size: 24px;}
     label{font-weight:600;color:#2d2a25;font-size:14px;margin-bottom:6px;display:block}
     /* Single vertical column */
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
@@ -104,10 +108,6 @@
             <label>Nombre y apellidos <span style="color:#a83b3b">*</span></label>
             <input type="text" name="nombre" required placeholder="Tu nombre completo" />
           </div>
-          <div>
-            <label>Teléfono</label>
-            <input type="tel" name="telefono" inputmode="tel" placeholder="+34 6XX XX XX XX" />
-          </div>
 
           <div>
             <label>Acompañante</label>
@@ -142,15 +142,21 @@
             </div>
             <input type="hidden" name="num_ninos" id="num_ninos" />
           </div>
+          <div>
+  <label>¿Asistirás a la preboda?</label>
+  <div class="seg" id="seg-preboda">
+    <button type="button" class="btn" data-val="si">Sí</button>
+    <button type="button" class="btn" data-val="no">No</button>
+  </div>
+  <div class="hint">Viernes 26 · 19:30</div>
+  <input type="hidden" name="preboda" id="preboda">
+</div>
 
           <div>
             <label>Intolerancias o alergias</label>
             <input type="text" name="intolerancias" placeholder="Ej.: sin gluten, sin lácteos…" />
           </div>
-          <div>
-            <label>Comentarios</label>
-            <textarea name="comentarios" placeholder="Cuéntanos cualquier detalle que debamos tener en cuenta"></textarea>
-          </div>
+         
           <div>
             <label><input type="checkbox" name="consent" required /> Acepto que mis datos se usen solo para la organización de la boda.</label>
             <div class="hint">Contacto: <a href="mailto:juangumar1@gmail.com">juangumar1@gmail.com</a></div>
@@ -174,7 +180,6 @@
   <div class="floating-rsvp" role="group" aria-label="Asistencia">
     <div class="floating-inner">
       <button class="rbtn" data-val="si" type="button">Asistiré</button>
-      <button class="rbtn" data-val="duda" type="button">Quizá</button>
       <button class="rbtn" data-val="no" type="button">No puedo</button>
     </div>
   </div>
@@ -233,6 +238,8 @@
       if(!show && num) num.value='';
     });
     makeSegmented('seg-num', 'num_ninos');
+    
+    makeSegmented('seg-preboda', 'preboda');
 
     // Form submit
     const form = document.getElementById('rsvp');
