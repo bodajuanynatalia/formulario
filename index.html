@@ -241,41 +241,33 @@
 
     makeSegmented('seg-preboda', 'preboda');
 
-    // Form submit
-    const form = document.getElementById('rsvp');
-    const ok = document.getElementById('ok');
-    const fail = document.getElementById('fail');
+// Form submit (POST normal a Apps Script: compatible con GitHub Pages)
+const form = document.getElementById('rsvp');
 
-    form.addEventListener('submit', (e)=>{
-  if(!asistenciaInput.value) {
+form.addEventListener('submit', (e) => {
+  // 1) Debe elegir Asistiré / No puedo (botones flotantes)
+  if (!asistenciaInput.value) {
     alert('Selecciona tu opción: Asistiré o No puedo');
     e.preventDefault();
     return;
   }
-  if(!form.checkValidity()) {
+
+  // 2) Validación HTML (nombre + checkbox)
+  if (!form.checkValidity()) {
     form.reportValidity();
     e.preventDefault();
     return;
   }
-  // Si todo OK -> el navegador envía el POST normal al Apps Script
+
+  // 3) Honeypot anti-spam
+  if (form.querySelector('input[name="_gotcha"]').value) {
+    e.preventDefault();
+    window.location.href = 'gracias.html?status=spam';
+    return;
+  }
+
+  // Si todo OK: NO hacemos preventDefault -> el navegador envía el POST normal al Apps Script
+  // El redirect a gracias.html lo hace el Apps Script (como ya configuramos)
 });
 
-      // CAMBIO: sin "Quizá"
-      if(!asistenciaInput.value) { alert('Selecciona tu opción: Asistiré o No puedo'); return; }
-
-      if(!form.checkValidity()) { form.reportValidity(); return; }
-      if(form.querySelector('input[name=\"_gotcha\"]').value) { window.location.href='gracias.html?status=spam'; return; }
-
-      const data = new FormData(form);
-      try {
-        const res = await fetch(form.action, { method:'POST', body:data });
-        if(res.ok) {
-          const status = asistenciaInput.value;
-          const name = encodeURIComponent(form.nombre.value || '');
-          window.location.href = 'gracias.html?status=' + encodeURIComponent(status) + '&name=' + name;
-        } else fail.classList.remove('hidden');
-      } catch(err) { fail.classList.remove('hidden'); }
-    });
-  </script>
-</body>
 </html>
