@@ -246,21 +246,18 @@
     const ok = document.getElementById('ok');
     const fail = document.getElementById('fail');
 
-    form.addEventListener('submit', (e) => {
-  // valida asistencia
+    form.addEventListener('submit', (e)=>{
   if(!asistenciaInput.value) {
     alert('Selecciona tu opción: Asistiré o No puedo');
     e.preventDefault();
     return;
   }
-  // valida el resto
   if(!form.checkValidity()) {
     form.reportValidity();
     e.preventDefault();
     return;
   }
-  // si todo está OK, NO hacemos preventDefault:
-  // dejamos que el navegador haga el POST normal al Apps Script.
+  // Si todo OK -> el navegador envía el POST normal al Apps Script
 });
 
       // CAMBIO: sin "Quizá"
