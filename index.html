@@ -246,8 +246,22 @@
     const ok = document.getElementById('ok');
     const fail = document.getElementById('fail');
 
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault(); ok.classList.add('hidden'); fail.classList.add('hidden');
+    form.addEventListener('submit', (e) => {
+  // valida asistencia
+  if(!asistenciaInput.value) {
+    alert('Selecciona tu opción: Asistiré o No puedo');
+    e.preventDefault();
+    return;
+  }
+  // valida el resto
+  if(!form.checkValidity()) {
+    form.reportValidity();
+    e.preventDefault();
+    return;
+  }
+  // si todo está OK, NO hacemos preventDefault:
+  // dejamos que el navegador haga el POST normal al Apps Script.
+});
 
       // CAMBIO: sin "Quizá"
       if(!asistenciaInput.value) { alert('Selecciona tu opción: Asistiré o No puedo'); return; }
